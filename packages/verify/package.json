@@ -1,0 +1,29 @@
+{
+  "name": "@dont-copy-me/verify",
+  "version": "0.1.0",
+  "description": "Playwright verification for Don't Copy Me: notice present, visuals, flows, errors, performance",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@dont-copy-me/notice": "workspace:*",
+    "@dont-copy-me/core": "workspace:*",
+    "pixelmatch": "^8.0.0",
+    "playwright": "^1.64.0",
+    "pngjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/pngjs": "^6.0.5"
+  },
+  "author": "g4lb <galevgi@gmail.com>"
+}

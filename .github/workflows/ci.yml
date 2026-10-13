@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test:unit
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Browser tests (verify, clone harness with mock agent)
+        run: pnpm vitest run --project browser
+      - name: End-to-end CLI workflow on the Vite demo
+        run: pnpm e2e
+      - name: Validate the Claude Code skill entry point
+        run: node .claude/skills/dont-copy-me/scripts/dcm.mjs help
+      - name: Upload demo report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dcm-demo-report
+          path: |
+            examples/vite-demo/.dcm/report.*
+            examples/vite-demo/.dcm/reports/
+            examples/vite-demo/.dcm/verify/
+          if-no-files-found: ignore

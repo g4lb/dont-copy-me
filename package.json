@@ -1,0 +1,35 @@
+{
+  "name": "dont-copy-me-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Honest rights notices for people and AI agents, and a benchmark of how cloning agents respond.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "pnpm@11.24.0",
+  "scripts": {
+    "build": "tsc -b packages/cli",
+    "clean": "tsc -b packages/cli --clean",
+    "typecheck": "tsc -b packages/cli && tsc -p tests/tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:browser": "vitest run --project browser",
+    "demo:build": "pnpm --filter vite-demo build",
+    "dcm": "node packages/cli/dist/bin.js",
+    "e2e": "node scripts/e2e-demo.mjs",
+    "test:unit": "vitest run --project unit",
+    "check": "pnpm build && pnpm typecheck && pnpm lint && pnpm test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.0",
+    "@types/node": "^22.19.0",
+    "eslint": "^10.12.0",
+    "playwright": "^1.64.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^5.0.4"
+  },
+  "author": "g4lb <galevgi@gmail.com>"
+}

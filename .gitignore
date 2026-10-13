@@ -1,0 +1,11 @@
+node_modules/
+dist/
+dist-protected/
+*.tsbuildinfo
+.dcm/
+out/
+coverage/
+test-results/
+playwright-report/
+.DS_Store
+*.log

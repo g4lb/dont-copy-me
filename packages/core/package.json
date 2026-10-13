@@ -1,0 +1,27 @@
+{
+  "name": "@dont-copy-me/core",
+  "version": "0.1.0",
+  "description": "Shared configuration, safety primitives and interfaces for Don't Copy Me",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "jiti": "^2.7.0",
+    "picomatch": "^4.0.3",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/picomatch": "^4.0.2"
+  },
+  "author": "g4lb <galevgi@gmail.com>"
+}

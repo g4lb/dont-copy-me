@@ -1,0 +1,22 @@
+{
+  "name": "@dont-copy-me/notice",
+  "version": "0.1.0",
+  "description": "Rights notice injection for Don't Copy Me",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@dont-copy-me/core": "workspace:*"
+  },
+  "author": "g4lb <galevgi@gmail.com>"
+}

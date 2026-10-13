@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "rootDir": "..",
+    "paths": {
+      "@dont-copy-me/*": ["../packages/*/src/index.ts"],
+      "dont-copy-me": ["../packages/cli/src/index.ts"]
+    }
+  },
+  "include": ["./**/*.ts", "../vitest.config.ts"]
+}

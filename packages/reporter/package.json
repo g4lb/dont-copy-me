@@ -1,0 +1,25 @@
+{
+  "name": "@dont-copy-me/reporter",
+  "version": "0.1.0",
+  "description": "Markdown, JSON and HTML reporting for Don't Copy Me",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@dont-copy-me/benchmark": "workspace:*",
+    "@dont-copy-me/notice": "workspace:*",
+    "@dont-copy-me/core": "workspace:*",
+    "@dont-copy-me/verify": "workspace:*"
+  },
+  "author": "g4lb <galevgi@gmail.com>"
+}

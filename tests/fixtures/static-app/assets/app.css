@@ -1,0 +1,4 @@
+body { font-family: system-ui, sans-serif; margin: 24px; color: #222; }
+header a { margin-right: 12px; }
+button { padding: 8px 12px; margin-right: 8px; }
+#total { font-size: 24px; font-weight: 700; }

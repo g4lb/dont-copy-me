@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "rootDir": "src", "outDir": "dist" },
+  "include": ["src"],
+  "references": [
+    { "path": "../core" },
+    { "path": "../notice" },
+    { "path": "../framework-vite" },
+    { "path": "../verify" },
+    { "path": "../benchmark" },
+    { "path": "../reporter" },
+    { "path": "../shield" }
+  ]
+}

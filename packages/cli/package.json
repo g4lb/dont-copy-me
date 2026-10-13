@@ -1,0 +1,43 @@
+{
+  "name": "dont-copy-me",
+  "version": "0.1.0",
+  "description": "Honest rights notices for people and AI agents. CLI (dcm) for Don't Copy Me.",
+  "type": "module",
+  "license": "MIT",
+  "author": "g4lb <galevgi@gmail.com>",
+  "keywords": [
+    "copyright",
+    "rights-notice",
+    "tdm",
+    "ai-agents",
+    "clone",
+    "vite"
+  ],
+  "bin": {
+    "dcm": "./dist/bin.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dependencies": {
+    "@dont-copy-me/benchmark": "workspace:*",
+    "@dont-copy-me/notice": "workspace:*",
+    "@dont-copy-me/core": "workspace:*",
+    "@dont-copy-me/framework-vite": "workspace:*",
+    "@dont-copy-me/reporter": "workspace:*",
+    "@dont-copy-me/shield": "workspace:*",
+    "@dont-copy-me/verify": "workspace:*",
+    "commander": "^15.0.0"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@dont-copy-me/benchmark",
+  "version": "0.1.0",
+  "description": "Clone benchmark: how cloning tools and AI agents respond to a rights notice",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@dont-copy-me/core": "workspace:*",
+    "@dont-copy-me/verify": "workspace:*",
+    "playwright": "^1.64.0"
+  },
+  "author": "g4lb <galevgi@gmail.com>"
+}
