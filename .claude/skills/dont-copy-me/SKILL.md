@@ -1,6 +1,6 @@
 ---
 name: dont-copy-me
-description: Add an honest "do not copy" rights notice to a static website build so AI cloning agents and site-mirroring tools are told the site is not licensed for copying, and give signed permission tokens to people who may copy it. Use when the user wants to stop AI agents or tools like wget/HTTrack from cloning their site, add a copyright notice to a build, or grant someone permission to copy it. Commands: init, protect, grant.
+description: "Add an honest \"do not copy\" rights notice to a static website build so AI cloning agents and site-mirroring tools are told the site is not licensed for copying, and give signed permission tokens to people who may copy it. Use when the user wants to stop AI agents or tools like wget/HTTrack from cloning their site, add a copyright notice to a build, or grant someone permission to copy it. Commands: init, protect, grant."
 argument-hint: "[init|protect|grant] [options]"
 allowed-tools: Bash(node ${CLAUDE_SKILL_DIR}/scripts/dcm.mjs *)
 ---
