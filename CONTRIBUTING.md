@@ -1,8 +1,10 @@
 # Contributing to Don't Copy Me
 
-Thanks for helping. This project makes claims about security and measurement, so the bar for
-evidence is high: every feature needs working code and real tests, and docs must not overstate
-what the code does.
+Thank you for your help. This project makes claims about security and measurement, so it needs
+strong evidence:
+
+- Every feature needs working code and real tests.
+- The docs must not say more than the code does.
 
 ## Setup
 
@@ -12,7 +14,7 @@ pnpm exec playwright install chromium   # browser tests and verify
 pnpm build                              # tsc -b, all packages
 ```
 
-Node.js ≥ 22.12 and pnpm 11 (`packageManager`: `pnpm@11.24.0`) are required.
+You need Node.js ≥ 22.12 and pnpm 11 (`packageManager`: `pnpm@11.24.0`).
 
 ## Everyday commands
 
@@ -40,35 +42,42 @@ packages/cli             dcm CLI (commander)
 .claude/skills/dont-copy-me   Claude Code Skill
 ```
 
-Dependencies flow one way: `core` ← engines/adapters ← `cli`. No package may import `cli`.
+Dependencies go in one direction only: `core` ← engines/adapters ← `cli`. No package can import
+`cli`.
 
 ## Rules
 
-1. **No fabricated numbers.** Benchmarks and reports only show measured values. Anything not
-   run is reported as `not executed`.
-2. **The notice stays honest.** No hidden text, no instructions aimed at AI models (prompt
-   injection), no false legal claims. Every placement says what the visible line says. PRs that
-   break this will be closed.
-3. **Never touch user sources.** Changes only apply to a staged copy of the build.
-4. **Tests are required** for behavior changes. Do not write tests that always pass. For a
-   browser-dependent test, put it in `tests/browser/`.
-5. **Strict TypeScript.** Avoid `any`. If it is truly unavoidable, explain why in a comment.
-6. Keep third-party cloning skills out of the repository. Runners execute local checkouts provided
-   by the user, unmodified.
+1. **Do not invent numbers.** Benchmarks and reports show only measured values. If something did
+   not run, the report says `not executed`.
+2. **Keep the notice honest.** We close PRs that break this rule.
+   - No hidden text.
+   - No instructions aimed at AI models (prompt injection).
+   - No false legal claims.
+   - Every placement says the same thing as the visible line.
+3. **Never change user sources.** Changes apply only to a staged copy of the build.
+4. **Add tests** for each behavior change.
+   - Do not write tests that always pass.
+   - Put browser-dependent tests in `tests/browser/`.
+5. **Use strict TypeScript.** Do not use `any`. If you must use it, write a comment that tells why.
+6. **Keep third-party cloning skills out of the repository.** Runners use local checkouts from the
+   user, with no changes.
 
-## Adding a framework adapter
+## Add a framework adapter
 
-Implement `FrameworkAdapter` from `@dont-copy-me/core` (`detect`, defaults, `serveMode`,
-`limitations`, optional `copyIgnore`, `urlToBuildPath`), register it in
-`packages/cli/src/context.ts`, and add fixture-based tests in `tests/integration/adapters.test.ts`.
+1. Implement `FrameworkAdapter` from `@dont-copy-me/core`. Include `detect`, defaults,
+   `serveMode` and `limitations`. `copyIgnore` and `urlToBuildPath` are optional.
+2. Register the adapter in `packages/cli/src/context.ts`.
+3. Add fixture-based tests in `tests/integration/adapters.test.ts`.
 
-## Adding a clone runner
+## Add a clone runner
 
-Implement `CloneRunner` (`packages/benchmark/src/clone/types.ts`), register it in
-`clone/registry.ts`, and make `availability()` explain precisely why it cannot run. AI runners
-must set `requiresAi: true` so they never run without consent.
+1. Implement `CloneRunner` (`packages/benchmark/src/clone/types.ts`).
+2. Register it in `clone/registry.ts`.
+3. Make `availability()` tell the exact reason when the runner cannot run.
+4. For an AI runner, set `requiresAi: true`. Then it never runs without consent.
 
 ## Commits
 
-Keep commits focused, use the imperative mood ("Add notice placement for SVG files"), and run `pnpm check`
-first.
+- Keep each commit on one topic.
+- Use the imperative mood ("Add notice placement for SVG files").
+- Run `pnpm check` before you commit.

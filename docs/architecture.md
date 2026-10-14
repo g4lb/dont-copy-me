@@ -23,8 +23,10 @@ flowchart BT
   cli --> shield
 ```
 
-There are no cycles. Only `cli` composes everything. Framework adapters are injected
-(`resolveProject(root, config, adapters)`), and clone runners implement `CloneRunner`.
+- There are no cycles.
+- Only `cli` puts all packages together.
+- The caller injects framework adapters: `resolveProject(root, config, adapters)`.
+- Clone runners implement `CloneRunner`.
 
 ## The protect pipeline
 
@@ -44,33 +46,35 @@ sequenceDiagram
 
 Key properties:
 
-- **Separate output.** The input build and sources are read-only to dcm. The output may not overlap
-  the input, the project root or source directories.
-- **Atomic publish.** Work happens in `os.tmpdir()`. The finished tree is copied next to the output
-  and swapped in with `rename`. The previous output goes to `.dcm/backups/` (3 kept), and
-  `dcm rollback` restores it. A broken reference aborts before publishing.
-- **Idempotent.** Pages that already carry `data-dcm-rights` and files that already start with the
-  banner are left alone. The same input and config produce the same output.
-- **One text everywhere.** `renderNotice` produces the notice once; every placement uses it. The
-  code banner adds the original site and a third-party license sentence.
+| Property | What it means |
+|---|---|
+| **Separate output** | dcm only reads the input build and the sources. The output must not overlap the input, the project root or the source directories. |
+| **Atomic publish** | dcm does the work in `os.tmpdir()`. It copies the finished tree next to the output and swaps it in with `rename`. The previous output goes to `.dcm/backups/` (dcm keeps 3). `dcm rollback` restores it. A broken reference stops the run before dcm publishes. |
+| **Idempotent** | dcm does not change pages that already have `data-dcm-rights`, or files that already start with the banner. The same input and config give the same output. |
+| **One text everywhere** | `renderNotice` makes the notice one time. All placements use it. The code banner adds the original site and a third-party license sentence. |
 
 ## Verification
 
-`verifyBuilds` serves both builds and compares them per viewport:
+`verifyBuilds` serves both builds. It compares them for each viewport and checks:
 
-- the rights notice is present on every HTML page of the output;
-- HTTP status, title and rendered text;
-- new console, page, network and hydration errors;
-- full-page screenshots with animations frozen (the notice line is removed before comparing);
-- accessibility smoke checks (no regressions allowed);
-- scripted flows (`verify.flows`);
-- median cold-load metrics and CDP script time, against budgets.
+- The rights notice is on every HTML page of the output.
+- HTTP status, title and rendered text.
+- New console, page, network and hydration errors.
+- Full-page screenshots, with animations frozen. dcm removes the notice line before it compares them.
+- Accessibility smoke checks. dcm allows no regressions.
+- Scripted flows (`verify.flows`).
+- Median cold-load metrics and CDP script time, against budgets.
 
 ## Benchmark
 
-`runCloneBenchmark`: per runner, per trial, per side (without / with notice): a fresh loopback
-server (server-side request log), a fresh temp working directory, the runner (`runIsolated`: no
-shell, timeout with process-group kill, `time(1)` accounting, optional `sandbox-exec`), artifact
-capture, then offline evaluation against cached captures of the original. For AI runners,
-`StreamUsageCollector` reads the agent's stream-json transcript: usage, and
-`classifyNoticeResponse` for mentions and refusals.
+`runCloneBenchmark` repeats these steps for each runner, each trial and each side (without and with the notice):
+
+1. Start a new loopback server. The server keeps a request log.
+2. Make a new temp working directory.
+3. Run the runner with `runIsolated`. It uses no shell, kills the process group on timeout, records resources with `time(1)`, and can use `sandbox-exec`.
+4. Capture the artifacts.
+5. Evaluate them offline against cached captures of the original.
+
+For AI runners, `StreamUsageCollector` reads the stream-json transcript of the agent. It records usage. It uses `classifyNoticeResponse` to find mentions of the notice and refusals.
+
+For details, see [benchmark.md](benchmark.md).
